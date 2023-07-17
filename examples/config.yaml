@@ -1,0 +1,5 @@
+accountIdentifier: <ACCOUNT_ID>
+orgIdentifier: <ORG_ID>
+projectIdentifier: <PROJECT_ID>
+targetIdentifier: <PIPELINE_ID>
+apiKey: <pat.XXXXX.YYYYY.ZZZZZ>

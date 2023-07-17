@@ -1,0 +1,35 @@
+trigger:
+  name: "GitHub"
+  identifier: "Identifier23"
+  enabled: false
+  encryptedWebhookSecretIdentifier: ""
+  description: ""
+  tags: {}
+  orgIdentifier: <+ORG>
+  projectIdentifier: <+PROJECT>
+  pipelineIdentifier: <+PIPELINE>
+  source:
+    type: Webhook
+    spec:
+      type: Github
+      spec:
+        type: Push
+        spec:
+          connectorRef: Github_Connector
+          autoAbortPreviousExecutions: false
+          payloadConditions:
+            - key: targetBranch
+              operator: Equals
+              value: main
+          headerConditions: []
+          actions: []
+  inputYaml: |
+    pipeline:
+      identifier: <+PIPELINE>
+      properties:
+        ci:
+          codebase:
+            build:
+              type: branch
+              spec:
+                branch: <+trigger.branch>
