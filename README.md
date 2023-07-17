@@ -18,6 +18,7 @@ The program takes two flags, `-config` and `-trigger`, which specify the paths t
 
 ```
 go run main.go -config <config-file-path> -trigger <trigger-file-path>
+create-trigger -config <config-file-path> -trigger <trigger-file-path>
 ```
 
 Replace `<config-file-path>` and `<trigger-file-path>` with the paths to your YAML files.
@@ -50,6 +51,7 @@ Here is how you can run the program with these example files:
 
 ```
 go run main.go -config examples/config.yaml -trigger examples/trigger.yaml
+create-trigger -config examples/config.yaml -trigger examples/trigger.yaml
 ```
 
 Replace `examples/config.yaml` and `examples/trigger.yaml` with the paths to your own YAML files if you have created custom configurations.
