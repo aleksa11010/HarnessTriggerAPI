@@ -1,6 +1,5 @@
 Sure, here's an updated README that includes an "Examples" section:
 
-```markdown
 # Harness Trigger API 
 
 This project provides a Go program that uses the Harness API to trigger workflows and pipelines based on specified YAML files.
@@ -56,4 +55,3 @@ go run main.go -config examples/config.yaml -trigger examples/trigger.yaml
 ```
 
 Replace `examples/config.yaml` and `examples/trigger.yaml` with the paths to your own YAML files if you have created custom configurations.
-```
