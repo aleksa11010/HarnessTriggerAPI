@@ -21,7 +21,6 @@ type Config struct {
 	ProjectIdentifier string `yaml:"projectIdentifier"`
 	TargetIdentifier  string `yaml:"targetIdentifier"`
 	ApiKey            string `yaml:"apiKey"`
-	TriggerYaml       string
 }
 
 func GetAccountIDFromAPIKey(apiKey string) string {
