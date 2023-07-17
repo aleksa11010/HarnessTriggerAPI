@@ -1,5 +1,3 @@
-Sure, here's an updated README that includes an "Examples" section:
-
 # Harness Trigger API 
 
 This project provides a Go program that uses the Harness API to trigger workflows and pipelines based on specified YAML files.
