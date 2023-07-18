@@ -6,7 +6,7 @@ import (
 	"regexp"
 )
 
-func ReadTriggerYaml(f string, c *Config) string {
+func ReadTriggerYaml(f, pipelineIdentifier string, c *Config) string {
 	data, err := os.ReadFile(f)
 	if err != nil {
 		log.Fatalf("Error reading YAML file: %v", err)
@@ -16,7 +16,7 @@ func ReadTriggerYaml(f string, c *Config) string {
 	vars := map[string]string{
 		"ORG":      c.OrgIdentifier,
 		"PROJECT":  c.ProjectIdentifier,
-		"PIPELINE": c.TargetIdentifier,
+		"PIPELINE": pipelineIdentifier,
 	}
 	re := regexp.MustCompile(`<\+\w+>`)
 	result := re.ReplaceAllStringFunc(string(data), func(match string) string {

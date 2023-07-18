@@ -36,9 +36,9 @@ func main() {
 	accountDetails := harness.Config{}
 	accountDetails.ReadConfig(*configFile)
 
-	trigger := harness.ReadTriggerYaml(*triggerFile, &accountDetails)
-
 	for _, pipeline := range accountDetails.TargetIdentifier {
+		trigger := harness.ReadTriggerYaml(*triggerFile, pipeline, &accountDetails)
+
 		resp, err := apiClient.Client.R().
 			SetHeader("x-api-key", accountDetails.ApiKey).
 			SetHeader("Content-Type", "application/json").
