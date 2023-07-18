@@ -18,6 +18,8 @@ The program takes two flags, `-config` and `-trigger`, which specify the paths t
 
 ```
 go run main.go -config <config-file-path> -trigger <trigger-file-path>
+```
+```
 create-trigger -config <config-file-path> -trigger <trigger-file-path>
 ```
 
@@ -30,7 +32,7 @@ The `config` YAML file should provide the following details:
 - `accountIdentifier`: Account Identifier for your Harness account.
 - `orgIdentifier`: Organization Identifier for your Harness account.
 - `projectIdentifier`: Project Identifier for your Harness account.
-- `targetIdentifier`: Target Identifier for your Harness account.
+- `targetIdentifier`: Target Identifier for your Harness account. ***You can pass an array of Pipeline Identifiers here***
 - `apiKey` : API Key for your Harness account.
 
 The `trigger` YAML file should contain the YAML configuration of the trigger you want to create. It can contain placeholder values for some fields in the format `<+PLACEHOLDER>`. These placeholders will be replaced with real values from your `config` file. The following placeholders are supported:
@@ -51,6 +53,8 @@ Here is how you can run the program with these example files:
 
 ```
 go run main.go -config examples/config.yaml -trigger examples/trigger.yaml
+```
+```
 create-trigger -config examples/config.yaml -trigger examples/trigger.yaml
 ```
 
