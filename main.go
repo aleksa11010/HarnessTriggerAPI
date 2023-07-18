@@ -38,21 +38,24 @@ func main() {
 
 	trigger := harness.ReadTriggerYaml(*triggerFile, &accountDetails)
 
-	resp, err := apiClient.Client.R().
-		SetHeader("x-api-key", accountDetails.ApiKey).
-		SetHeader("Content-Type", "application/json").
-		SetQueryParams(map[string]string{
-			"accountIdentifier": accountDetails.AccountIdentifier,
-			"orgIdentifier":     accountDetails.OrgIdentifier,
-			"projectIdentifier": accountDetails.ProjectIdentifier,
-			"targetIdentifier":  accountDetails.TargetIdentifier,
-		}).
-		SetBody(trigger).
-		Post(apiClient.BaseURL + "/pipeline/api/triggers")
+	for _, pipeline := range accountDetails.TargetIdentifier {
+		resp, err := apiClient.Client.R().
+			SetHeader("x-api-key", accountDetails.ApiKey).
+			SetHeader("Content-Type", "application/json").
+			SetQueryParams(map[string]string{
+				"accountIdentifier": accountDetails.AccountIdentifier,
+				"orgIdentifier":     accountDetails.OrgIdentifier,
+				"projectIdentifier": accountDetails.ProjectIdentifier,
+				"targetIdentifier":  pipeline,
+			}).
+			SetBody(trigger).
+			Post(apiClient.BaseURL + "/pipeline/api/triggers")
 
-	if err != nil {
-		logrus.Error(err)
+		if err != nil {
+			logrus.Error(err)
+		}
+
+		logrus.Info(resp)
 	}
 
-	logrus.Info(resp)
 }

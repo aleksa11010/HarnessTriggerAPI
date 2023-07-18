@@ -16,11 +16,11 @@ type APIRequest struct {
 }
 
 type Config struct {
-	AccountIdentifier string `yaml:"accountIdentifier"`
-	OrgIdentifier     string `yaml:"orgIdentifier"`
-	ProjectIdentifier string `yaml:"projectIdentifier"`
-	TargetIdentifier  string `yaml:"targetIdentifier"`
-	ApiKey            string `yaml:"apiKey"`
+	AccountIdentifier string   `yaml:"accountIdentifier"`
+	OrgIdentifier     string   `yaml:"orgIdentifier"`
+	ProjectIdentifier string   `yaml:"projectIdentifier"`
+	TargetIdentifier  []string `yaml:"targetIdentifier"`
+	ApiKey            string   `yaml:"apiKey"`
 }
 
 func GetAccountIDFromAPIKey(apiKey string) string {
