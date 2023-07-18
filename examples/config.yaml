@@ -1,5 +1,5 @@
 accountIdentifier: <ACCOUNT_ID>
 orgIdentifier: <ORG_ID>
 projectIdentifier: <PROJECT_ID>
-targetIdentifier: <PIPELINE_ID>
+targetIdentifier: [<PIPELINE_ID>, <PIPELINE_ID2>, <PIPELINE_ID3>]
 apiKey: <pat.XXXXX.YYYYY.ZZZZZ>
