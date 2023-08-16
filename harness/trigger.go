@@ -4,19 +4,31 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"unicode"
 )
 
-func ReadTriggerYaml(f, pipelineIdentifier string, c *Config) string {
+func ReadTriggerYaml(f, pipelineIdentifier, name, id string, c *Config) string {
 	data, err := os.ReadFile(f)
 	if err != nil {
 		log.Fatalf("Error reading YAML file: %v", err)
 	}
 
+	var vars = make(map[string]string)
 	log.Println(string(data))
-	vars := map[string]string{
-		"ORG":      c.OrgIdentifier,
-		"PROJECT":  c.ProjectIdentifier,
-		"PIPELINE": pipelineIdentifier,
+	if name == "" && id == "" {
+		vars = map[string]string{
+			"ORG":      c.OrgIdentifier,
+			"PROJECT":  c.ProjectIdentifier,
+			"PIPELINE": pipelineIdentifier,
+		}
+	} else {
+		vars = map[string]string{
+			"ORG":        c.OrgIdentifier,
+			"PROJECT":    c.ProjectIdentifier,
+			"PIPELINE":   pipelineIdentifier,
+			"NAME":       name,
+			"IDENTIFIER": id,
+		}
 	}
 	re := regexp.MustCompile(`<\+\w+>`)
 	result := re.ReplaceAllStringFunc(string(data), func(match string) string {
@@ -28,7 +40,23 @@ func ReadTriggerYaml(f, pipelineIdentifier string, c *Config) string {
 		return match
 	})
 
-	log.Println(result)
+	return result
+}
 
+func ConvertToCamelCase(input string) string {
+	result := ""
+	capitalizeNext := true
+	for _, r := range input {
+		if unicode.IsSpace(r) || r == '_' || r == '-' {
+			capitalizeNext = true
+			continue
+		}
+		if capitalizeNext {
+			result += string(unicode.ToUpper(r))
+			capitalizeNext = false
+		} else {
+			result += string(unicode.ToLower(r))
+		}
+	}
 	return result
 }
