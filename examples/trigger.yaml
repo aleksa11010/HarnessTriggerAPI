@@ -1,6 +1,6 @@
 trigger:
-  name: "GitHub"
-  identifier: "Identifier23"
+  name: "<+NAME>"
+  identifier: "<+IDENTIFIER>"
   enabled: false
   encryptedWebhookSecretIdentifier: ""
   description: ""
