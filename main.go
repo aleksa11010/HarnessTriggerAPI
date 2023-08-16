@@ -37,25 +37,49 @@ func main() {
 	accountDetails.ReadConfig(*configFile)
 
 	for _, pipeline := range accountDetails.TargetIdentifier {
-		trigger := harness.ReadTriggerYaml(*triggerFile, pipeline, &accountDetails)
+		if len(accountDetails.TargetIdentifier) == len(accountDetails.Names) {
+			for _, name := range accountDetails.Names {
+				trigger := harness.ReadTriggerYaml(*triggerFile, pipeline, name, harness.ConvertToCamelCase(name), &accountDetails)
 
-		resp, err := apiClient.Client.R().
-			SetHeader("x-api-key", accountDetails.ApiKey).
-			SetHeader("Content-Type", "application/json").
-			SetQueryParams(map[string]string{
-				"accountIdentifier": accountDetails.AccountIdentifier,
-				"orgIdentifier":     accountDetails.OrgIdentifier,
-				"projectIdentifier": accountDetails.ProjectIdentifier,
-				"targetIdentifier":  pipeline,
-			}).
-			SetBody(trigger).
-			Post(apiClient.BaseURL + "/pipeline/api/triggers")
+				resp, err := apiClient.Client.R().
+					SetHeader("x-api-key", accountDetails.ApiKey).
+					SetHeader("Content-Type", "application/json").
+					SetQueryParams(map[string]string{
+						"accountIdentifier": accountDetails.AccountIdentifier,
+						"orgIdentifier":     accountDetails.OrgIdentifier,
+						"projectIdentifier": accountDetails.ProjectIdentifier,
+						"targetIdentifier":  pipeline,
+					}).
+					SetBody(trigger).
+					Post(apiClient.BaseURL + "/pipeline/api/triggers")
 
-		if err != nil {
-			logrus.Error(err)
+				if err != nil {
+					logrus.Error(err)
+				}
+
+				logrus.Info(resp)
+			}
+		} else {
+			trigger := harness.ReadTriggerYaml(*triggerFile, pipeline, "", "", &accountDetails)
+
+			resp, err := apiClient.Client.R().
+				SetHeader("x-api-key", accountDetails.ApiKey).
+				SetHeader("Content-Type", "application/json").
+				SetQueryParams(map[string]string{
+					"accountIdentifier": accountDetails.AccountIdentifier,
+					"orgIdentifier":     accountDetails.OrgIdentifier,
+					"projectIdentifier": accountDetails.ProjectIdentifier,
+					"targetIdentifier":  pipeline,
+				}).
+				SetBody(trigger).
+				Post(apiClient.BaseURL + "/pipeline/api/triggers")
+
+			if err != nil {
+				logrus.Error(err)
+			}
+
+			logrus.Info(resp)
 		}
-
-		logrus.Info(resp)
 	}
 
 }
