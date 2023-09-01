@@ -38,8 +38,8 @@ func main() {
 
 	for _, pipeline := range accountDetails.TargetIdentifier {
 		if len(accountDetails.TargetIdentifier) == len(accountDetails.Names) {
-			for _, name := range accountDetails.Names {
-				trigger := harness.ReadTriggerYaml(*triggerFile, pipeline, name, harness.ConvertToCamelCase(name), &accountDetails)
+			for i, name := range accountDetails.Names {
+				trigger := harness.ReadTriggerYaml(*triggerFile, accountDetails.TargetIdentifier[i], name, harness.ConvertToCamelCase(name), &accountDetails)
 
 				resp, err := apiClient.Client.R().
 					SetHeader("x-api-key", accountDetails.ApiKey).
