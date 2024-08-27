@@ -1,6 +1,6 @@
 # Harness Trigger API 
 
-This project provides a Go program that uses the Harness API to trigger workflows and pipelines based on specified YAML files.
+This project provides a Go program that uses the Harness API to create a trigger for pipelines based on specified YAML files.
 
 ## Prerequisites 
 
